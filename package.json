@@ -1,6 +1,6 @@
 {
   "name": "trivali",
-  "version": "1.6.1",
+  "version": "1.0.0",
   "description": "Dead simple Object schema validation",
   "main": "lib/index.js",
   "module": "lib/index.esm.js",
@@ -21,16 +21,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/synopkg/trivali.git"
+    "url": "git+https://github.com/khulnasoft-bot/trivali.git"
   },
   "author": {
     "name": "@monasticpanic Jason Quense"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/synopkg/trivali/issues"
+    "url": "https://github.com/khulnasoft-bot/trivali/issues"
   },
-  "homepage": "https://github.com/synopkg/trivali",
+  "homepage": "https://github.com/khulnasoft-bot/trivali",
   "release": {
     "conventionalCommits": true,
     "publishDir": "lib"
@@ -73,6 +73,7 @@
     "@rollup/plugin-babel": "^5.3.1",
     "@rollup/plugin-node-resolve": "^13.3.0",
     "@types/jest": "^27.5.2",
+    "@types/minimatch": "^6.0.0",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
     "@typescript-eslint/parser": "^5.62.0",
     "babel-jest": "^27.5.1",
@@ -91,6 +92,7 @@
     "hookem": "^2.0.1",
     "jest": "^27.5.1",
     "lint-staged": "^13.2.3",
+    "minimatch": "^10.1.1",
     "prettier": "^2.8.8",
     "rollup": "^2.79.1",
     "rollup-plugin-babel": "^4.4.0",
