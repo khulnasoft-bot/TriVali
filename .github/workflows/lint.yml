@@ -1,19 +1,47 @@
-name: Test
+name: CI
+
 on:
   push:
     branches: [master, next]
   pull_request:
     branches: [master, next]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
+    name: Build & Test
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18, 20] # test multiple runtimes
+
     steps:
-      - uses: actions/checkout@v3
-      - name: Setup Node
-        uses: actions/setup-node@v3
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: 'lts/*'
-      - run: |
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+
+      - name: 📦 Setup pnpm
+        run: |
           corepack enable
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm test
+          corepack prepare pnpm@8.15.7 --activate
+
+      - name: 📦 Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: 🔍 Lint
+        run: pnpm lint --if-present
+
+      - name: 🏗️ Build
+        run: pnpm build --if-present
+
+      - name: 🧪 Test
+        run: pnpm test --if-present
