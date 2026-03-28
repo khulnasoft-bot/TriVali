@@ -1,8 +1,20 @@
 {
-  "extends": "@4c/tsconfig/web",
+  "extends": "@khulnasoft/style-guide/typescript",
   "compilerOptions": {
-    "rootDir": "src",
-    "strictFunctionTypes": true
+    "target": "ES2020",           // ✅ Modern JavaScript target
+    "lib": ["ES2020"],           // ✅ Modern library support
+    "module": "ESNext",           // ✅ Modern module output
+    "moduleResolution": "node",      // ✅ Node.js resolution
+    "strict": true,               // ✅ Strict type checking
+    "esModuleInterop": true,        // ✅ Better ES module interop
+    "skipLibCheck": true,          // ✅ Faster compilation
+    "forceConsistentCasingInFileNames": true, // ✅ Consistent naming
+    "declaration": true,           // ✅ Generate .d.ts files
+    "outDir": "lib",             // ✅ Output to lib/
+    "rootDir": "src",             // ✅ Source in src/
+    "strictFunctionTypes": true,    // ✅ Strict function types
+    "allowSyntheticDefaultImports": true // ✅ Modern import behavior
   },
-  "include": ["src/**/*.ts"]
+  "include": ["src/**/*.ts"],     // ✅ Include all source files
+  "exclude": ["node_modules", "lib", "test"] // ✅ Exclude build/output
 }
