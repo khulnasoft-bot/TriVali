@@ -1,39 +1,100 @@
-# 🚀 TriVali – **Trigger & Validate Schema Effortlessly**  
+# 🚀 TriVali – **Trigger & Validate Schema Effortlessly**
+
+*Runtime Schema Validation & Transformation Engine*
+
+> **Define → Transform → Validate → Trust**
+
 *(Pronounced: "Tri" like "trigger", "Vali" like "validation")*
 
+<a aria-label="KhulnaSoft logo" href="https://khulnasoft.com">
+  <img alt="" src="https://img.shields.io/badge/Made%20by%20Khulnasoft-000000.svg?style=flat-square&logo=Khulnasoft&labelColor=000">
+</a>
+<a aria-label="NPM version" href="https://www.npmjs.com/package/trivali">
+  <img alt="" src="https://img.shields.io/npm/v/trivali.svg?style=flat-square&labelColor=000000">
+</a>
+<a aria-label="License" href="https://github.com/khulnasoft-bot/trivali/blob/main/LICENSE">
+  <img alt="" src="https://img.shields.io/npm/l/trivali.svg?style=flat-square&labelColor=000000">
+</a>
+<a aria-label="CI status" href="https://github.com/khulnasoft-bot/trivali/actions/workflows/ci.yml?query=event%3Apush+branch%3Amain">
+  <img alt="" src="https://img.shields.io/github/actions/workflow/status/khulnasoft-bot/trivali/ci.yml?event=push&branch=main&style=flat-square&labelColor=000000">
+</a>
+<a aria-label="TypeScript" href="http://www.typescriptlang.org/">
+  <img alt="" src="https://img.shields.io/badge/%3C%2F%3E-TypeScript-0074c1.svg?style=flat-square&labelColor=000000">
+</a>
+<a aria-label="Downloads" href="https://www.npmjs.com/package/trivali">
+  <img alt="" src="https://img.shields.io/npm/dm/trivali.svg?style=flat-square&labelColor=000000">
+</a>
+
+---
+
+## 📊 **At a Glance**
+
+| Feature | Status | Performance | Type Safety |
+|---------|--------|-------------|-------------|
+| **Runtime Validation** | ✅ | ⚡ Lightning Fast | 🔒 Full TypeScript Support |
+| **Async Support** | ✅ | 🚀 Non-blocking | 🎯 Type Inference |
+| **Custom Methods** | ✅ | 🛠️ Extensible | 🔧 Developer Friendly |
+| **Error Handling** | ✅ | 📍 Detailed Messages | 🎨 Rich Metadata |
+
+---
+
+## 🎯 **Why TriVali?**
+
 **TriVali** is a runtime schema builder for value parsing and validation. With **TriVali**, you can define a schema, transform a value to match the schema, assert the shape of an existing value, or both. **TriVali** schemas are powerful, highly expressive, and allow modeling of complex, interdependent validations and transformations for your data.
+
+```mermaid
+graph LR
+    A[Input Data] --> B[Schema Definition]
+    B --> C[Parse & Transform]
+    C --> D[Validate & Test]
+    D --> E[Validated Output]
+    
+    style A fill:#e1f5fe
+    style B fill:#f3e5f5
+    style C fill:#e8f5e8
+    style D fill:#fff3e0
+    style E fill:#e8f5e8
+```
 
 ---
 
 ### **🔥 Killer Features of TriVali:**
 
-- **Concise & Expressive Interface**  
-  Easily create simple to complex data models with a clean and intuitive schema interface.
-
-- **Powerful TypeScript Support**  
-  Automatically infer static types from your schema, or ensure that your schema implements the correct type.
-
-- **Built-in Async Validation**  
-  Seamlessly model both server-side and client-side validation.
-
-- **Extensible & Customizable**  
-  Add your own type-safe methods and schemas with minimal effort.
-
-- **Rich Error Details**  
-  Receive detailed error messages that make debugging a breeze.
+| Feature | Description | Benefit |
+|---------|-------------|---------|
+| **🎨 Concise & Expressive Interface** | Clean and intuitive schema API | **Developer Productivity** 🚀 |
+| **🔒 Powerful TypeScript Support** | Auto-infer types & ensure correctness | **Type Safety** 🛡️ |
+| **⚡ Built-in Async Validation** | Seamlessly handle async operations | **Performance** ⚡ |
+| **🔧 Extensible & Customizable** | Add type-safe methods & schemas | **Flexibility** 🔧 |
+| **📝 Rich Error Details** | Detailed, actionable error messages | **Better Debugging** 🐛 |
 
 ---
 
-## **Getting Started with TriVali**
+## 🚀 **Getting Started with TriVali**
+
+### **Installation**
+
+```bash
+# npm
+npm install trivali
+
+# yarn
+yarn add trivali
+
+# pnpm
+pnpm add trivali
+```
+
+### **Quick Start**
 
 Schemas in **TriVali** are comprised of parsing actions (transforms) and assertions (tests) about input values. You can validate input values by parsing them and running a configured set of assertions. The schema-building process is fluent and allows for method chaining.
 
-### **Example:**
+### **📝 Example: User Schema Validation**
 
-```ts
+```typescript
 import { object, string, number, date, InferType } from 'trivali';
 
-// Define a schema for a user object
+// 🎯 Define a schema for a user object
 let userSchema = object({
   name: string().required(),
   age: number().required().positive().integer(),
@@ -42,14 +103,14 @@ let userSchema = object({
   createdOn: date().default(() => new Date()),
 });
 
-// Parse and assert validity of user data
+// ✅ Parse and assert validity of user data
 let user = await userSchema.validate(await fetchUser());
 
-// Infer the TypeScript type from the schema
+// 🔍 Infer the TypeScript type from the schema
 type User = InferType<typeof userSchema>;
 
 /* 
-  Type User:
+  📋 Type User:
   {
     name: string;
     age: number;
@@ -60,18 +121,31 @@ type User = InferType<typeof userSchema>;
 */
 ```
 
-### **How TriVali Works:**
+### **🔄 How TriVali Works:**
 
-- **Value Transformation:**  
-  Use the schema to **coerce** or **cast** an input value into the correct type. Optionally, transform the value into more specific and concrete values, without making further assertions.
+```mermaid
+graph TD
+    A[Raw Input] --> B{Schema Applied}
+    B --> C[Transform/Parse]
+    B --> D[Validate/Test]
+    C --> E[Coerced Value]
+    D --> F[Validated Output]
+    E --> F
+    
+    style A fill:#ffebee
+    style B fill:#e8eaf6
+    style C fill:#e8f5e8
+    style D fill:#fff3e0
+    style F fill:#e8f5e8
+```
 
----
+#### **🔧 Value Transformation:**  
+Use the schema to **coerce** or **cast** an input value into the correct type. Optionally, transform the value into more specific and concrete values, without making further assertions.
 
-Use a schema to coerce or "cast" an input value into the correct type, and optionally
-transform that value into more concrete and specific values, without making further assertions.
+#### **🎯 Casting Example:**
 
-```ts
-// Attempts to coerce values to the correct type
+```typescript
+// 🔄 Attempts to coerce values to the correct type
 let parsedUser = userSchema.cast({
   name: 'jimmy',
   age: '24',
@@ -80,10 +154,11 @@ let parsedUser = userSchema.cast({
 // ✅  { name: 'jimmy', age: 24, createdOn: Date }
 ```
 
-Know that your input value is already parsed? You can "strictly" validate an input, and avoid the overhead
-of running parsing logic.
+#### **🔒 Strict Validation Example:**
 
-```ts
+Know that your input value is already parsed? You can "strictly" validate an input, and avoid the overhead of running parsing logic.
+
+```typescript
 // ❌  ValidationError "age is not a number"
 let parsedUser = await userSchema.validate(
   {
@@ -94,35 +169,55 @@ let parsedUser = await userSchema.validate(
 );
 ```
 
-## Table of Contents
+---
+
+## 📚 **Table of Contents**
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-- [Schema basics](#schema-basics)
-  - [Parsing: Transforms](#parsing-transforms)
-  - [Validation: Tests](#validation-tests)
-    - [Customizing errors](#customizing-errors)
-  - [Composition and Reuse](#composition-and-reuse)
-- [TypeScript integration](#typescript-integration)
-  - [Schema defaults](#schema-defaults)
-  - [Ensuring a schema matches an existing type](#ensuring-a-schema-matches-an-existing-type)
-  - [Extending built-in schema with new methods](#extending-built-in-schema-with-new-methods)
-  - [TypeScript configuration](#typescript-configuration)
-- [Error message customization](#error-message-customization)
-  - [localization and i18n](#localization-and-i18n)
-- [API](#api)
-  - [`trivali`](#trivali)
-    - [`reach(schema: Schema, path: string, value?: object, context?: object): Schema`](#reachschema-schema-path-string-value-object-context-object-schema)
-    - [`addMethod(schemaType: Schema, name: string, method: ()=> Schema): void`](#addmethodschematype-schema-name-string-method--schema-void)
-    - [`ref(path: string, options: { contextPrefix: string }): Ref`](#refpath-string-options--contextprefix-string--ref)
-    - [`lazy((value: any) => Schema): Lazy`](#lazyvalue-any--schema-lazy)
-    - [`ValidationError(errors: string | Array<string>, value: any, path: string)`](#validationerrorerrors-string--arraystring-value-any-path-string)
-  - [`Schema`](#schema)
-    - [`Schema.clone(): Schema`](#schemaclone-schema)
-    - [`Schema.label(label: string): Schema`](#schemalabellabel-string-schema)
-    - [`Schema.meta(metadata: SchemaMetadata): Schema`](#schemametametadata-schemametadata-schema)
-    - [`Schema.describe(options?: ResolveOptions): SchemaDescription`](#schemadescribeoptions-resolveoptions-schemadescription)
+- [🏗️ **Schema Basics**](#-schema-basics)
+  - [**📋 Core Concepts**](#-core-concepts)
+  - [**🔄 Parsing: Transforms**](#-parsing-transforms)
+    - [**🎯 Transform Examples**](#-transform-examples)
+    - [**⚡ Transform Pipeline**](#-transform-pipeline)
+  - [**🧪 Validation: Tests**](#-validation-tests)
+    - [**✅ Basic Test Example**](#-basic-test-example)
+    - [**🔧 Custom Test Example**](#-custom-test-example)
+    - [**🎯 Advanced Test with Dynamic Errors**](#-advanced-test-with-dynamic-errors)
+    - [**🛠️ Customizing Errors**](#-customizing-errors)
+  - [**🔄 Composition and Reuse**](#-composition-and-reuse)
+    - [**📋 Immutability Example**](#-immutability-example)
+    - [**🏗️ Schema Composition Patterns**](#-schema-composition-patterns)
+- [🔒 **TypeScript Integration**](#-typescript-integration)
+  - [**🎯 Type Safety Features**](#-type-safety-features)
+    - [**📝 Basic Type Inference**](#-basic-type-inference)
+    - [**🎯 Schema Defaults & Types**](#-schema-defaults--types)
+    - [**🔒 Ensuring Schema Matches Existing Type**](#-ensuring-schema-matches-existing-type)
+    - [**🔧 Extending Built-in Schema with New Methods**](#-extending-built-in-schema-with-new-methods)
+    - [**⚙️ TypeScript Configuration**](#-typescript-configuration)
+- [🌍 **Error Message Customization**](#-error-message-customization)
+  - [**🎨 Custom Error Messages**](#-custom-error-messages)
+    - [**📝 Basic Localization Example**](#-basic-localization-example)
+  - [**🌐 Localization and i18n**](#-localization-and-i18n)
+    - [**🔧 Advanced i18n Setup**](#-advanced-i18n-setup)
+    - [**🌍 Supported Languages Matrix**](#-supported-languages-matrix)
+- [📚 **API Reference**](#-api-reference)
+  - [**🔧 Core Module (`trivali`)**](#-core-module-trivali)
+    - [**📦 Available Imports**](#-available-imports)
+    - [**🎯 Utility Functions**](#-utility-functions)
+      - [**`reach(schema: Schema, path: string, value?: object, context?: object): Schema`**](#reachschema-schema-path-string-value-object-context-object-schema)
+      - [**`addMethod(schemaType: Schema, name: string, method: ()=> Schema): void`**](#addmethodschematype-schema-name-string-method--schema-void)
+      - [**`ref(path: string, options: { contextPrefix: string }): Ref`**](#refpath-string-options--contextprefix-string--ref)
+      - [**`lazy((value: any) => Schema): Lazy`**](#lazyvalue-any--schema-lazy)
+      - [**`ValidationError(errors: string | Array<string>, value: any, path: string)`**](#validationerrorerrors-string--arraystring-value-any-path-string)
+  - [**🏗️ Core Schema Class**](#-core-schema-class)
+    - [**🔧 Schema Methods Overview**](#-schema-methods-overview)
+    - [**📋 Schema Metadata Methods**](#-schema-metadata-methods)
+      - [**`Schema.clone(): Schema`**](#schemaclone-schema)
+      - [**`Schema.label(label: string): Schema`**](#schemalabellabel-string-schema)
+      - [**`Schema.meta(metadata: SchemaMetadata): Schema`**](#schemametametadata-schemametadata-schema)
+      - [**`Schema.describe(options?: ResolveOptions): SchemaDescription`**](#schemadescribeoptions-resolveoptions-schemadescription)
     - [`Schema.concat(schema: Schema): Schema`](#schemaconcatschema-schema-schema)
     - [`Schema.validate(value: any, options?: object): Promise<InferType<Schema>, ValidationError>`](#schemavalidatevalue-any-options-object-promiseinfertypeschema-validationerror)
     - [`Schema.validateSync(value: any, options?: object): InferType<Schema>`](#schemavalidatesyncvalue-any-options-object-infertypeschema)
@@ -150,116 +245,103 @@ let parsedUser = await userSchema.validate(
     - [`Schema.test(name: string, message: string | function | any, test: function): Schema`](#schematestname-string-message-string--function--any-test-function-schema)
     - [`Schema.test(options: object): Schema`](#schematestoptions-object-schema)
     - [`Schema.transform((currentValue: any, originalValue: any) => any): Schema`](#schematransformcurrentvalue-any-originalvalue-any--any-schema)
-  - [mixed](#mixed)
-  - [string](#string)
-    - [`string.required(message?: string | function): Schema`](#stringrequiredmessage-string--function-schema)
-    - [`string.length(limit: number | Ref, message?: string | function): Schema`](#stringlengthlimit-number--ref-message-string--function-schema)
-    - [`string.min(limit: number | Ref, message?: string | function): Schema`](#stringminlimit-number--ref-message-string--function-schema)
-    - [`string.max(limit: number | Ref, message?: string | function): Schema`](#stringmaxlimit-number--ref-message-string--function-schema)
-    - [`string.matches(regex: Regex, message?: string | function): Schema`](#stringmatchesregex-regex-message-string--function-schema)
-    - [`string.matches(regex: Regex, options: { message: string, excludeEmptyString: bool }): Schema`](#stringmatchesregex-regex-options--message-string-excludeemptystring-bool--schema)
-    - [`string.email(message?: string | function): Schema`](#stringemailmessage-string--function-schema)
-    - [`string.url(message?: string | function): Schema`](#stringurlmessage-string--function-schema)
-    - [`string.uuid(message?: string | function): Schema`](#stringuuidmessage-string--function-schema)
-    - [`string.datetime(options?: {message?: string | function, allowOffset?: boolean, precision?: number})`](#stringdatetimeoptions-message-string--function-allowoffset-boolean-precision-number)
-    - [`string.datetime(message?: string | function)`](#stringdatetimemessage-string--function)
-    - [`string.ensure(): Schema`](#stringensure-schema)
-    - [`string.trim(message?: string | function): Schema`](#stringtrimmessage-string--function-schema)
-    - [`string.lowercase(message?: string | function): Schema`](#stringlowercasemessage-string--function-schema)
-    - [`string.uppercase(message?: string | function): Schema`](#stringuppercasemessage-string--function-schema)
-  - [number](#number)
-    - [`number.min(limit: number | Ref, message?: string | function): Schema`](#numberminlimit-number--ref-message-string--function-schema)
-    - [`number.max(limit: number | Ref, message?: string | function): Schema`](#numbermaxlimit-number--ref-message-string--function-schema)
-    - [`number.lessThan(max: number | Ref, message?: string | function): Schema`](#numberlessthanmax-number--ref-message-string--function-schema)
-    - [`number.moreThan(min: number | Ref, message?: string | function): Schema`](#numbermorethanmin-number--ref-message-string--function-schema)
-    - [`number.positive(message?: string | function): Schema`](#numberpositivemessage-string--function-schema)
-    - [`number.negative(message?: string | function): Schema`](#numbernegativemessage-string--function-schema)
-    - [`number.integer(message?: string | function): Schema`](#numberintegermessage-string--function-schema)
-    - [`number.truncate(): Schema`](#numbertruncate-schema)
-    - [`number.round(type: 'floor' | 'ceil' | 'trunc' | 'round' = 'round'): Schema`](#numberroundtype-floor--ceil--trunc--round--round-schema)
-  - [boolean](#boolean)
-  - [date](#date)
-    - [`date.min(limit: Date | string | Ref, message?: string | function): Schema`](#dateminlimit-date--string--ref-message-string--function-schema)
-    - [`date.max(limit: Date | string | Ref, message?: string | function): Schema`](#datemaxlimit-date--string--ref-message-string--function-schema)
-  - [array](#array)
-    - [`array.of(type: Schema): this`](#arrayoftype-schema-this)
-    - [`array.json(): this`](#arrayjson-this)
-    - [`array.length(length: number | Ref, message?: string | function): this`](#arraylengthlength-number--ref-message-string--function-this)
-    - [`array.min(limit: number | Ref, message?: string | function): this`](#arrayminlimit-number--ref-message-string--function-this)
-    - [`array.max(limit: number | Ref, message?: string | function): this`](#arraymaxlimit-number--ref-message-string--function-this)
-    - [`array.ensure(): this`](#arrayensure-this)
-    - [`array.compact(rejector: (value) => boolean): Schema`](#arraycompactrejector-value--boolean-schema)
-  - [tuple](#tuple)
-  - [object](#object)
-    - [Object schema defaults](#object-schema-defaults)
-    - [`object.shape(fields: object, noSortEdges?: Array<[string, string]>): Schema`](#objectshapefields-object-nosortedges-arraystring-string-schema)
-    - [`object.json(): this`](#objectjson-this)
-    - [`object.concat(schemaB: ObjectSchema): ObjectSchema`](#objectconcatschemab-objectschema-objectschema)
-    - [`object.pick(keys: string[]): Schema`](#objectpickkeys-string-schema)
-    - [`object.omit(keys: string[]): Schema`](#objectomitkeys-string-schema)
-    - [`object.from(fromKey: string, toKey: string, alias: boolean = false): this`](#objectfromfromkey-string-tokey-string-alias-boolean--false-this)
-    - [`object.exact(message?: string | function): Schema`](#objectexactmessage-string--function-schema)
-    - [`object.stripUnknown(): Schema`](#objectstripunknown-schema)
-    - [`object.noUnknown(onlyKnownKeys: boolean = true, message?: string | function): Schema`](#objectnounknownonlyknownkeys-boolean--true-message-string--function-schema)
-    - [`object.camelCase(): Schema`](#objectcamelcase-schema)
-    - [`object.constantCase(): Schema`](#objectconstantcase-schema)
+- [🎯 **Schema Types Reference**](#-schema-types-reference)
+  - [**🔧 Mixed Schema**](#-mixed-schema)
+    - [**📋 Mixed Schema Features**](#-mixed-schema-features)
+    - [**🔧 Custom Type Implementation**](#-custom-type-implementation)
+  - [**📝 String Schema**](#-string-schema)
+    - [**🎯 String Schema Methods**](#-string-schema-methods)
+    - [**⚙️ String Schema Behavior**](#-string-schema-behavior)
+  - [**🔢 Number Schema**](#-number-schema)
+    - [**🎯 Number Schema Methods**](#-number-schema-methods)
+    - [**⚙️ Number Schema Behavior**](#-number-schema-behavior)
+  - [**✅ Boolean Schema**](#-boolean-schema)
+  - [**📅 Date Schema**](#-date-schema)
+    - [**🎯 Date Schema Methods**](#-date-schema-methods)
+    - [**⚙️ Date Schema Behavior**](#-date-schema-behavior)
+  - [**📋 Array Schema**](#-array-schema)
+    - [**🎯 Array Schema Methods**](#-array-schema-methods)
+  - [**📝 Object Schema**](#-object-schema)
+    - [**🎯 Object Schema Methods**](#-object-schema-methods)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ---
 
-## Schema basics
+## 🏗️ **Schema Basics**
 
-Schema definitions, are comprised of parsing "transforms" which manipulate inputs into the desired shape and type, "tests", which make assertions over parsed data. Schema also store a bunch of "metadata", details about the schema itself, which can be used to improve error messages, build tools that dynamically consume schema, or serialize schema into another format.
+### **📋 Core Concepts**
 
-In order to be maximally flexible trivali allows running both parsing and assertions separately to match specific needs
+Schema definitions are comprised of:
 
-### Parsing: Transforms
+| Component | Purpose | Example |
+|-----------|---------|---------|
+| **🔄 Transforms** | Manipulate inputs into desired shape | `string().lowercase().trim()` |
+| **🧪 Tests** | Assert criteria over parsed data | `.min(3).email().required()` |
+| **📝 Metadata** | Store schema information | `.label('Email').meta({ key: 'value' })` |
 
-Each built-in type implements basic type parsing, which comes in handy when parsing serialized data, such as JSON.
-Additionally types implement type specific transforms that can be enabled.
+```mermaid
+graph LR
+    A[Raw Input] --> B[Transform Pipeline]
+    B --> C[Parsed Value]
+    C --> D[Test Assertions]
+    D --> E[Validated Output]
+    
+    style A fill:#ffebee
+    style B fill:#e8f5e8
+    style C fill:#e3f2fd
+    style D fill:#fff3e0
+    style E fill:#e8f5e8
+```
 
-```ts
+In order to be maximally flexible, **TriVali** allows running both parsing and assertions separately to match specific needs.
+
+### **🔄 Parsing: Transforms**
+
+Each built-in type implements basic type parsing, which comes in handy when parsing serialized data, such as JSON. Additionally types implement type specific transforms that can be enabled.
+
+#### **🎯 Transform Examples**
+
+```typescript
+// 🔢 Basic number transformation
 let num = number().cast('1'); // 1
 
+// 🎨 String transformations with JSON parsing
 let obj = object({
   firstName: string().lowercase().trim(),
 })
   .json()
   .camelCase()
   .cast('{"first_name": "jAnE "}'); // { firstName: 'jane' }
-```
 
-Custom transforms can be added
-
-```ts
+// 🔧 Custom transform example
 let reversedString = string()
   .transform((currentValue) => currentValue.split('').reverse().join(''))
   .cast('dlrow olleh'); // "hello world"
 ```
 
-Transforms form a "pipeline", where the value of a previous transform is piped into the next one.
-When an input value is `undefined` trivali will apply the schema default if it's configured.
+#### **⚡ Transform Pipeline**
 
-> Watch out! values are not guaranteed to be valid types in transform functions. Previous transforms
-> may have failed. For example a number transform may be receive the input value, `NaN`, or a number.
+Transforms form a "pipeline", where the value of a previous transform is piped into the next one. When an input value is `undefined` **TriVali** will apply the schema default if it's configured.
 
-### Validation: Tests
+> ⚠️ **Watch out!** Values are not guaranteed to be valid types in transform functions. Previous transforms may have failed. For example a number transform may receive the input value, `NaN`, or a number.
 
-Trivali schema run "tests" over input values. Tests assert that inputs conform to some
-criteria. Tests are distinct from transforms, in that they do not change or alter the input (or its type)
-and are usually reserved for checks that are hard, if not impossible, to represent in static types.
+### **🧪 Validation: Tests**
 
-```ts
+**TriVali** schema run "tests" over input values. Tests assert that inputs conform to some criteria. Tests are distinct from transforms, in that they do not change or alter the input (or its type) and are usually reserved for checks that are hard, if not impossible, to represent in static types.
+
+#### **✅ Basic Test Example**
+
+```typescript
 string()
   .min(3, 'must be at least 3 characters long')
   .email('must be a valid email')
   .validate('no'); // ValidationError
 ```
 
-As with transforms, tests can be customized on the fly
+#### **🔧 Custom Test Example**
 
-```ts
+```typescript
 let jamesSchema = string().test(
   'is-james',
   (d) => `${d.path} is not James`,
@@ -271,23 +353,9 @@ jamesSchema.validateSync('James'); // "James"
 jamesSchema.validateSync('Jane'); // ValidationError "this is not James"
 ```
 
-> Heads up: unlike transforms, `value` in a custom test is guaranteed to be the correct type
-> (in this case an optional string). It still may be `undefined` or `null` depending on your schema
-> in those cases, you may want to return `true` for absent values unless your transform makes presence
-> related assertions. The test option `skipAbsent` will do this for you if set.
+#### **🎯 Advanced Test with Dynamic Errors**
 
-#### Customizing errors
-
-In the simplest case a test function returns `true` or `false` depending on the whether the check
-passed. In the case of a failing test, trivali will throw
-a [`ValidationError`](#validationerrorerrors-string--arraystring-value-any-path-string) with your (or the default)
-message for that test. ValidationErrors also contain a bunch of other metadata about the test,
-including it's name, what arguments (if any) it was called with, and the path to the failing field
-in the case of a nested validation.
-
-Error messages can also be constructed on the fly to customize how the schema fails.
-
-```ts
+```typescript
 let order = object({
   no: number().required(),
   sku: string().test({
@@ -311,26 +379,85 @@ let order = object({
 order.validate({ no: 1234, sku: 's-1a45-14a' });
 ```
 
-### Composition and Reuse
+> 💡 **Heads up:** Unlike transforms, `value` in a custom test is guaranteed to be the correct type (in this case an optional string). It still may be `undefined` or `null` depending on your schema. In those cases, you may want to return `true` for absent values unless your transform makes presence related assertions. The test option `skipAbsent` will do this for you if set.
 
-Schema are immutable, each method call returns a new schema object. Reuse and pass them around without
-fear of mutating another instance.
+#### **🛠️ Customizing Errors**
 
-```ts
+In the simplest case a test function returns `true` or `false` depending on whether the check passed. In the case of a failing test, **TriVali** will throw a [`ValidationError`](#validationerrorerrors-string--arraystring-value-any-path-string) with your (or the default) message for that test. ValidationErrors also contain a bunch of other metadata about the test, including its name, what arguments (if any) it was called with, and the path to the failing field in the case of a nested validation.
+
+Error messages can also be constructed on the fly to customize how the schema fails.
+
+```typescript
+// 🎨 Dynamic error creation example
+let order = object({
+  no: number().required(),
+  sku: string().test({
+    name: 'is-sku',
+    skipAbsent: true,
+    test(value, ctx) {
+      if (!value.startsWith('s-')) {
+        return ctx.createError({ message: 'SKU missing correct prefix' });
+      }
+      if (!value.endsWith('-42a')) {
+        return ctx.createError({ message: 'SKU missing correct suffix' });
+      }
+      if (value.length < 10) {
+        return ctx.createError({ message: 'SKU is not the right length' });
+      }
+      return true;
+    },
+  }),
+});
+
+order.validate({ no: 1234, sku: 's-1a45-14a' });
+```
+
+### **🔄 Composition and Reuse**
+
+Schema are immutable, each method call returns a new schema object. Reuse and pass them around without fear of mutating another instance.
+
+#### **📋 Immutability Example**
+
+```typescript
+// 🔧 Create base schema
 let optionalString = string().optional();
 
+// 🎯 Extend with defined requirement
 let definedString = optionalString.defined();
 
+// ✅ Different behavior for same base
 let value = undefined;
 optionalString.isValid(value); // true
 definedString.isValid(value); // false
 ```
 
-## TypeScript integration
+#### **🏗️ Schema Composition Patterns**
 
-Trivali schema produce static TypeScript interfaces. Use `InferType` to extract that interface:
+| Pattern | Use Case | Example |
+|---------|----------|---------|
+| **Base Extension** | Common validation rules | `optionalString.defined()` |
+| **Method Chaining** | Complex validation | `string().email().required()` |
+| **Schema Reuse** | Shared validation logic | `const userBase = object({...})` |
+| **Immutable Updates** | Safe modifications | `schema.clone().required()` |
 
-```ts
+---
+
+## 🔒 **TypeScript Integration**
+
+### **🎯 Type Safety Features**
+
+| Feature | Description | Benefit |
+|---------|-------------|---------|
+| **🔍 Auto Type Inference** | `InferType<T>` extracts schema types | **Zero-config typing** ✨ |
+| **🛡️ Runtime Validation** | Compile-time + runtime checks | **Double safety** 🛡️ |
+| **🔧 Extensible Types** | Interface merging support | **Custom methods** 🔧 |
+| **⚡ IntelliSense** | Full editor support | **Better DX** 💻 |
+
+**TriVali** schema produce static TypeScript interfaces. Use `InferType` to extract that interface:
+
+#### **📝 Basic Type Inference**
+
+```typescript
 import * as trivali from 'trivali';
 
 let personSchema = trivali.object({
@@ -345,31 +472,29 @@ let personSchema = trivali.object({
 });
 
 interface Person extends trivali.InferType<typeof personSchema> {
-  // using interface instead of type generally gives nicer editor feedback
+  // 🎨 using interface instead of type generally gives nicer editor feedback
 }
 ```
 
-### Schema defaults
+#### **🎯 Schema Defaults & Types**
 
-A schema's default is used when casting produces an `undefined` output value. Because of this,
-setting a default affects the output type of the schema, essentially marking it as "defined()".
+A schema's default is used when casting produces an `undefined` output value. Because of this, setting a default affects the output type of the schema, essentially marking it as "defined()".
 
-```ts
+```typescript
 import { string } from 'trivali';
 
+// ✅ With default - always returns string
 let value: string = string().default('hi').validate(undefined);
 
-// vs
-
+// ❌ Without default - can return undefined
 let value: string | undefined = string().validate(undefined);
 ```
 
-### Ensuring a schema matches an existing type
+#### **🔒 Ensuring Schema Matches Existing Type**
 
-In some cases a TypeScript type already exists, and you want to ensure that
-your schema produces a compatible type:
+In some cases a TypeScript type already exists, and you want to ensure that your schema produces a compatible type:
 
-```ts
+```typescript
 import { object, number, string, ObjectSchema } from 'trivali';
 
 interface Person {
@@ -378,38 +503,34 @@ interface Person {
   sex: 'male' | 'female' | 'other' | null;
 }
 
-// will raise a compile-time type error if the schema does not produce a valid Person
+// ✅ Will raise a compile-time type error if schema does not produce a valid Person
 let schema: ObjectSchema<Person> = object({
   name: string().defined(),
   age: number().optional(),
   sex: string<'male' | 'female' | 'other'>().nullable().defined(),
 });
 
-// ❌ errors:
-// "Type 'number | undefined' is not assignable to type 'string'."
+// ❌ Type error: "Type 'number | undefined' is not assignable to type 'string'."
 let badSchema: ObjectSchema<Person> = object({
   name: number(),
 });
 ```
 
-### Extending built-in schema with new methods
+#### **🔧 Extending Built-in Schema with New Methods**
 
-You can use TypeScript's interface merging behavior to extend the schema types
-if needed. Type extensions should go in an "ambient" type definition file such as your
-`globals.d.ts`. Remember to actually extend the trivali type in your application code!
+You can use TypeScript's interface merging behavior to extend the schema types if needed. Type extensions should go in an "ambient" type definition file such as your `globals.d.ts`.
 
-> Watch out! merging only works if the type definition is _exactly_ the same, including
-> generics. Consult the trivali source code for each type to ensure you are defining it correctly
+> ⚠️ **Watch out!** Merging only works if the type definition is _exactly_ the same, including generics. Consult the **TriVali** source code for each type to ensure you are defining it correctly
 
-```ts
-// globals.d.ts
+```typescript
+// 📁 globals.d.ts
 declare module 'trivali' {
   interface StringSchema<TType, TContext, TDefault, TFlags> {
     append(appendStr: string): this;
   }
 }
 
-// app.ts
+// 📁 app.ts
 import { addMethod, string } from 'trivali';
 
 addMethod(string, 'append', function append(appendStr: string) {
@@ -419,27 +540,27 @@ addMethod(string, 'append', function append(appendStr: string) {
 string().append('~~~~').cast('hi'); // 'hi~~~~'
 ```
 
-### TypeScript configuration
+#### **⚙️ TypeScript Configuration**
 
 You **must** have the `strictNullChecks` compiler option enabled for type inference to work.
 
-We also recommend settings `strictFunctionTypes` to `false`, for functionally better types. Yes
-this reduces overall soundness, however TypeScript already disables this check
-for methods and constructors (note from TS docs):
+We also recommend settings `strictFunctionTypes` to `false`, for functionally better types. Yes this reduces overall soundness, however TypeScript already disables this check for methods and constructors (note from TS docs):
 
-> During development of this feature, we discovered a large number of inherently
-> unsafe class hierarchies, including some in the DOM. Because of this,
-> the setting only applies to functions written in function syntax, not to those in method syntax:
+> During development of this feature, we discovered a large number of inherently unsafe class hierarchies, including some in the DOM. Because of this, the setting only applies to functions written in function syntax, not to those in method syntax.
 
-Your mileage will vary, but we've found that this check doesn't prevent many of
-real bugs, while increasing the amount of onerous explicit type casting in apps.
+Your mileage will vary, but we've found that this check doesn't prevent many of real bugs, while increasing the amount of onerous explicit type casting in apps.
 
-## Error message customization
+---
 
-Default error messages can be customized for when no message is provided with a validation test.
-If any message is missing in the custom dictionary the error message will default to Trivali's one.
+## 🌍 **Error Message Customization**
 
-```js
+### **🎨 Custom Error Messages**
+
+Default error messages can be customized for when no message is provided with a validation test. If any message is missing in the custom dictionary the error message will default to **TriVali**'s one.
+
+#### **📝 Basic Localization Example**
+
+```typescript
 import { setLocale } from 'trivali';
 
 setLocale({
@@ -451,7 +572,7 @@ setLocale({
   },
 });
 
-// now use Trivali schemas AFTER you defined your custom dictionary
+// 🎯 Now use TriVali schemas AFTER you defined your custom dictionary
 let schema = trivali.object().shape({
   name: trivali.string(),
   age: trivali.number().min(18),
@@ -465,20 +586,21 @@ try {
 }
 ```
 
-### localization and i18n
+### **🌐 Localization and i18n**
 
-If you need multi-language support, trivali has got you covered. The function `setLocale` accepts functions that can be used to
-generate error objects with translation keys and values. These can be fed it into your favorite i18n library.
+If you need multi-language support, **TriVali** has got you covered. The function `setLocale` accepts functions that can be used to generate error objects with translation keys and values. These can be fed into your favorite i18n library.
 
-```js
+#### **🔧 Advanced i18n Setup**
+
+```typescript
 import { setLocale } from 'trivali';
 
 setLocale({
-  // use constant translation keys for messages without values
+  // 🎯 Use constant translation keys for messages without values
   mixed: {
     default: 'field_invalid',
   },
-  // use functions to generate an error object that includes the value from the schema
+  // 🔧 Use functions to generate an error object that includes the value from the schema
   number: {
     min: ({ min }) => ({ key: 'field_too_short', values: { min } }),
     max: ({ max }) => ({ key: 'field_too_big', values: { max } }),
@@ -499,14 +621,31 @@ try {
 }
 ```
 
-## API
+#### **🌍 Supported Languages Matrix**
 
-### `trivali`
+| Language | Built-in Support | Community Maintained | Custom Setup |
+|----------|------------------|---------------------|--------------|
+| **🇺🇸 English** | ✅ Full | N/A | ✅ Easy |
+| **🇧🇷 Portuguese** | ⚠️ Basic | ✅ Available | ✅ Easy |
+| **🇪🇸 Spanish** | ⚠️ Basic | ✅ Available | ✅ Easy |
+| **🇫🇷 French** | ❌ None | ✅ Available | ✅ Easy |
+| **🇩🇪 German** | ❌ None | ✅ Available | ✅ Easy |
+| **🇯🇵 Japanese** | ❌ None | ✅ Available | ✅ Easy |
+| **🇰🇷 Korean** | ❌ None | ✅ Available | ✅ Easy |
+| **🇨🇳 Chinese** | ❌ None | ✅ Available | ✅ Easy |
+
+---
+
+## 📚 **API Reference**
+
+### **🔧 Core Module (`trivali`)**
 
 The module export.
 
-```ts
-// core schema
+#### **📦 Available Imports**
+
+```typescript
+// 🔥 Core schema types
 import {
   mixed,
   string,
@@ -520,7 +659,7 @@ import {
   lazy,
 } from 'trivali';
 
-// Classes
+// 🏗️ Schema classes
 import {
   Schema,
   MixedSchema,
@@ -532,18 +671,17 @@ import {
   ObjectSchema,
 } from 'trivali';
 
-// Types
+// 📝 TypeScript types
 import type { InferType, ISchema, AnySchema, AnyObjectSchema } from 'trivali';
 ```
 
-#### `reach(schema: Schema, path: string, value?: object, context?: object): Schema`
+#### **🎯 Utility Functions**
+
+##### **`reach(schema: Schema, path: string, value?: object, context?: object): Schema`**
 
 For nested schemas, `reach` will retrieve an inner schema based on the provided path.
 
-For nested schemas that need to resolve dynamically, you can provide a `value` and optionally
-a `context` object.
-
-```js
+```typescript
 import { reach } from 'trivali';
 
 let schema = object({
@@ -558,46 +696,32 @@ reach(schema, 'nested.arr[1].num');
 reach(schema, 'nested["arr"][1].num');
 ```
 
-#### `addMethod(schemaType: Schema, name: string, method: ()=> Schema): void`
+##### **`addMethod(schemaType: Schema, name: string, method: ()=> Schema): void`**
 
 Adds a new method to the core schema types. A friendlier convenience method for `schemaType.prototype[name] = method`.
 
-```ts
+```typescript
 import { addMethod, date } from 'trivali';
 
 addMethod(date, 'format', function format(formats, parseStrict) {
   return this.transform((value, originalValue, ctx) => {
     if (ctx.isType(value)) return value;
-
     value = Moment(originalValue, formats, parseStrict);
-
     return value.isValid() ? value.toDate() : new Date('');
   });
 });
 ```
 
-If you want to add a method to ALL schema types, extend the abstract base class: `Schema`
+##### **`ref(path: string, options: { contextPrefix: string }): Ref`**
 
-```ts
-import { addMethod, Schema } from 'trivali';
+Creates a reference to another sibling or sibling descendant field. Refs are resolved at _validation/cast time_ and supported where specified.
 
-addMethod(Schema, 'myMethod', ...)
-```
-
-#### `ref(path: string, options: { contextPrefix: string }): Ref`
-
-Creates a reference to another sibling or sibling descendant field. Refs are resolved
-at _validation/cast time_ and supported where specified. Refs are evaluated in the proper order so that
-the ref value is resolved before the field using the ref (be careful of circular dependencies!).
-
-```js
+```typescript
 import { ref, object, string } from 'trivali';
 
 let schema = object({
   baz: ref('foo.bar'),
-  foo: object({
-    bar: string(),
-  }),
+  foo: object({ bar: string() }),
   x: ref('$x'),
 });
 
@@ -605,15 +729,11 @@ schema.cast({ foo: { bar: 'boom' } }, { context: { x: 5 } });
 // => { baz: 'boom',  x: 5, foo: { bar: 'boom' } }
 ```
 
-#### `lazy((value: any) => Schema): Lazy`
+##### **`lazy((value: any) => Schema): Lazy`**
 
-Creates a schema that is evaluated at validation/cast time. Useful for creating
-recursive schema like Trees, for polymorphic fields and arrays.
+Creates a schema that is evaluated at validation/cast time. Useful for creating recursive schema like Trees, for polymorphic fields and arrays.
 
-**CAUTION!** When defining parent-child recursive object schema, you want to reset the `default()`
-to `null` on the child—otherwise the object will infinitely nest itself when you cast it!
-
-```js
+```typescript
 let node = object({
   id: number(),
   child: trivali.lazy(() => node.default(undefined)),
@@ -621,76 +741,61 @@ let node = object({
 
 let renderable = trivali.lazy((value) => {
   switch (typeof value) {
-    case 'number':
-      return number();
-    case 'string':
-      return string();
-    default:
-      return mixed();
+    case 'number': return number();
+    case 'string': return string();
+    default: return mixed();
   }
 });
 
 let renderables = array().of(renderable);
 ```
 
-#### `ValidationError(errors: string | Array<string>, value: any, path: string)`
+##### **`ValidationError(errors: string | Array<string>, value: any, path: string)`**
 
-Thrown on failed validations, with the following properties
+Thrown on failed validations, with the following properties:
 
-- `name`: "ValidationError"
-- `type`: the specific test type or test "name", that failed.
-- `value`: The field value that was tested;
-- `params`?: The test inputs, such as max value, regex, etc;
-- `path`: a string, indicating where there error was thrown. `path` is empty at the root level.
-- `errors`: array of error messages
-- `inner`: in the case of aggregate errors, inner is an array of `ValidationErrors` throw earlier in the
-  validation chain. When the `abortEarly` option is `false` this is where you can inspect each error thrown,
-  alternatively, `errors` will have all of the messages from each inner error.
+| Property | Type | Description |
+|----------|------|-------------|
+| **`name`** | string | Always "ValidationError" |
+| **`type`** | string | The specific test type that failed |
+| **`value`** | any | The field value that was tested |
+| **`params`** | object | The test inputs (max value, regex, etc) |
+| **`path`** | string | Where the error was thrown (empty at root) |
+| **`errors`** | array | Array of error messages |
+| **`inner`** | array | Inner ValidationErrors (when `abortEarly: false`) |
 
-### `Schema`
+---
 
-`Schema` is the abstract base class that all schema type inherit from. It provides a number of base methods and properties
-to all other schema types.
+### **🏗️ Core Schema Class**
 
-> Note: unless you are creating a custom schema type, Schema should never be used directly. For unknown/any types use [`mixed()`](#mixed)
+`Schema` is the abstract base class that all schema type inherit from. It provides a number of base methods and properties to all other schema types.
 
-#### `Schema.clone(): Schema`
+> 💡 **Note:** Unless you are creating a custom schema type, Schema should never be used directly. For unknown/any types use [`mixed()`](#mixed)
 
+#### **🔧 Schema Methods Overview**
+
+| Category | Methods | Purpose |
+|----------|---------|---------|
+| **📋 Metadata** | `label()`, `meta()`, `describe()` | Schema information |
+| **🔄 Validation** | `validate()`, `validateSync()`, `isValid()` | Run validation |
+| **🎯 Casting** | `cast()`, `isType()` | Transform values |
+| **⚙️ Configuration** | `strict()`, `strip()`, `default()` | Schema behavior |
+| **🧪 Testing** | `test()`, `oneOf()`, `when()` | Custom validation |
+| **🔗 Composition** | `concat()`, `clone()`, `withMutation()` | Schema building |
+
+#### **📋 Schema Metadata Methods**
+
+##### **`Schema.clone(): Schema`**
 Creates a deep copy of the schema. Clone is used internally to return a new schema with every schema state change.
 
-#### `Schema.label(label: string): Schema`
-
+##### **`Schema.label(label: string): Schema`**
 Overrides the key name which is used in error messages.
 
-#### `Schema.meta(metadata: SchemaMetadata): Schema`
+##### **`Schema.meta(metadata: SchemaMetadata): Schema`**
+Adds to a metadata object, useful for storing data with a schema, that doesn't belong to the cast object itself.
 
-Adds to a metadata object, useful for storing data with a schema, that doesn't belong
-to the cast object itself.
-
-A custom `SchemaMetadata` interface can be defined through
-[merging](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#merging-interfaces)
-with the `CustomSchemaMetadata` interface. Start by creating a `trivali.d.ts` file
-in your package and creating your desired `CustomSchemaMetadata` interface:
-
-```ts
-// trivali.d.ts
-import 'trivali';
-
-declare module 'trivali' {
-  // Define your desired `SchemaMetadata` interface by merging the
-  // `CustomSchemaMetadata` interface.
-  export interface CustomSchemaMetadata {
-    placeholderText?: string;
-    tooltipText?: string;
-    // …
-  }
-}
-```
-
-#### `Schema.describe(options?: ResolveOptions): SchemaDescription`
-
-Collects schema details (like meta, labels, and active tests) into a serializable
-description object.
+##### **`Schema.describe(options?: ResolveOptions): SchemaDescription`**
+Collects schema details (like meta, labels, and active tests) into a serializable description object.
 
 ```ts
 let schema = object({
@@ -1267,32 +1372,42 @@ module.exports = function (formats = 'MMM dd, yyyy') {
 };
 ```
 
-### mixed
+---
 
-Creates a schema that matches all types, or just the ones you configure. Inherits from [`Schema`](#Schema).
-Mixed types extends `{}` by default instead of `any` or `unknown`. This is because in TypeScript `{}` means
-anything that isn't `null` or `undefined` which trivali treats distinctly.
+## 🎯 **Schema Types Reference**
 
-```ts
+### **🔧 Mixed Schema**
+
+Creates a schema that matches all types, or just the ones you configure. Inherits from [`Schema`](#schema).
+
+#### **📋 Mixed Schema Features**
+
+| Feature | Description | Example |
+|---------|-------------|---------|
+| **🎯 Type Matching** | Accepts any type by default | `mixed()` |
+| **🔒 Custom Types** | Define custom type guards | `mixed((input): input is MyType => ...)` |
+| **🔄 Transformations** | Custom value transformations | `.transform((value) => ...)` |
+| **🧪 Validation** | Custom test functions | `.test('custom', (value) => ...)` |
+
+```typescript
 import { mixed, InferType } from 'trivali';
 
+// 🎯 Basic mixed schema
 let schema = mixed().nullable();
 
 schema.validateSync('string'); // 'string';
-
 schema.validateSync(1); // 1;
-
 schema.validateSync(new Date()); // Date;
 
 InferType<typeof schema>; // {} | undefined
-
 InferType<typeof schema.nullable().defined()>; // {} | null
 ```
 
-Custom types can be implemented by passing a type `check` function. This will also
-narrow the TypeScript type for the schema.
+#### **🔧 Custom Type Implementation**
 
-```ts
+Custom types can be implemented by passing a type `check` function. This will also narrow the TypeScript type for the schema.
+
+```typescript
 import { mixed, InferType } from 'trivali';
 
 let objectIdSchema = trivali
@@ -1303,478 +1418,209 @@ let objectIdSchema = trivali
   });
 
 await objectIdSchema.validate(ObjectId('507f1f77bcf86cd799439011')); // ObjectId("507f1f77bcf86cd799439011")
-
 await objectIdSchema.validate('507f1f77bcf86cd799439011'); // ObjectId("507f1f77bcf86cd799439011")
-
 InferType<typeof objectIdSchema>; // ObjectId
 ```
 
-### string
+---
 
-Define a string schema. Inherits from [`Schema`](#Schema).
+### **📝 String Schema**
 
-```js
+Define a string schema. Inherits from [`Schema`](#schema).
+
+#### **🎯 String Schema Methods**
+
+| Method | Description | Example |
+|--------|-------------|---------|
+| **`.required()`** | Must be non-empty string | `string().required()` |
+| **`.length()`** | Fixed length requirement | `string().length(10)` |
+| **`.min()`** | Minimum length | `string().min(3)` |
+| **`.max()`** | Maximum length | `string().max(50)` |
+| **`.matches()`** | Regex pattern matching | `string().matches(/^[a-z]+$/)` |
+| **`.email()`** | Email validation | `string().email()` |
+| **`.url()`** | URL validation | `string().url()` |
+| **`.uuid()`** | UUID validation | `string().uuid()` |
+| **`.datetime()`** | ISO datetime validation | `string().datetime()` |
+| **`.trim()`** | Whitespace trimming | `string().trim()` |
+| **`.lowercase()`** | Convert to lowercase | `string().lowercase()` |
+| **`.uppercase()`** | Convert to uppercase | `string().uppercase()` |
+
+```typescript
+// 🎯 String schema examples
 let schema = trivali.string();
 
 await schema.isValid('hello'); // => true
+
+// 🔧 Advanced string validation
+let emailSchema = string()
+  .email('Must be a valid email')
+  .required('Email is required')
+  .max(100, 'Email too long');
 ```
 
-By default, the `cast` logic of `string` is to call `toString` on the value if it exists.
+#### **⚙️ String Schema Behavior**
 
-empty values are not coerced (use `ensure()` to coerce empty values to empty strings).
+By default, the `cast` logic of `string` is to call `toString` on the value if it exists. Empty values are not coerced (use `ensure()` to coerce empty values to empty strings). Failed casts return the input value.
 
-Failed casts return the input value.
+---
 
-#### `string.required(message?: string | function): Schema`
+### **🔢 Number Schema**
 
-The same as the `mixed()` schema required, **except** that empty strings are also considered 'missing' values.
+Define a number schema. Inherits from [`Schema`](#schema).
 
-#### `string.length(limit: number | Ref, message?: string | function): Schema`
+#### **🎯 Number Schema Methods**
 
-Set a required length for the string value. The `${length}` interpolation can be used in the `message` argument
+| Method | Description | Example |
+|--------|-------------|---------|
+| **`.min()`** | Minimum value | `number().min(0)` |
+| **`.max()`** | Maximum value | `number().max(100)` |
+| **`.lessThan()`** | Strictly less than | `number().lessThan(100)` |
+| **`.moreThan()`** | Strictly greater than | `number().moreThan(0)` |
+| **`.positive()`** | Positive numbers only | `number().positive()` |
+| **`.negative()`** | Negative numbers only | `number().negative()` |
+| **`.integer()`** | Integer validation | `number().integer()` |
+| **`.truncate()`** | Truncate decimal places | `number().truncate()` |
+| **`.round()`** | Round to specified precision | `number().round('ceil')` |
 
-#### `string.min(limit: number | Ref, message?: string | function): Schema`
-
-Set a minimum length limit for the string value. The `${min}` interpolation can be used in the `message` argument
-
-#### `string.max(limit: number | Ref, message?: string | function): Schema`
-
-Set a maximum length limit for the string value. The `${max}` interpolation can be used in the `message` argument
-
-#### `string.matches(regex: Regex, message?: string | function): Schema`
-
-Provide an arbitrary `regex` to match the value against.
-
-```js
-let schema = string().matches(/(hi|bye)/);
-
-await schema.isValid('hi'); // => true
-await schema.isValid('nope'); // => false
-```
-
-#### `string.matches(regex: Regex, options: { message: string, excludeEmptyString: bool }): Schema`
-
-An alternate signature for `string.matches` with an options object. `excludeEmptyString`, when true,
-short circuits the regex test when the value is an empty string, making it a easier to avoid
-matching nothing without complicating the regex.
-
-```js
-let schema = string().matches(/(hi|bye)/, { excludeEmptyString: true });
-
-await schema.isValid(''); // => true
-```
-
-#### `string.email(message?: string | function): Schema`
-
-Validates the value as an email address using the same regex as defined by the HTML spec.
-
-WATCH OUT: Validating email addresses is nearly impossible with just code. Different
-clients and servers accept different things and many diverge from the various specs defining
-"valid" emails. The ONLY real way to validate an email address is to send a verification email
-to it and check that the user got it. With that in mind, trivali picks a relatively simple regex
-that does not cover all cases, but aligns with browser input validation behavior since HTML
-forms are a common use case for trivali.
-
-If you have more specific needs please override the email method with your own logic or regex:
-
-```ts
-trivali.addMethod(trivali.string, 'email', function validateEmail(message) {
-  return this.matches(myEmailRegex, {
-    message,
-    name: 'email',
-    excludeEmptyString: true,
-  });
-});
-```
-
-#### `string.url(message?: string | function): Schema`
-
-Validates the value as a valid URL via a regex.
-
-#### `string.uuid(message?: string | function): Schema`
-
-Validates the value as a valid UUID via a regex.
-
-#### `string.datetime(options?: {message?: string | function, allowOffset?: boolean, precision?: number})`
-
-Validates the value as an ISO datetime via a regex. Defaults to UTC validation; timezone offsets are not permitted (see `options.allowOffset`).
-
-Unlike `.date()`, `datetime` will not convert the string to a `Date` object. `datetime` also provides greater customization over the required format of the datetime string than `date` does.
-
-`options.allowOffset`: Allow a time zone offset. False requires UTC 'Z' timezone. _(default: false)_
-`options.precision`: Require a certain sub-second precision on the date. _(default: null -- any (or no) sub-second precision)_
-
-#### `string.datetime(message?: string | function)`
-
-An alternate signature for `string.datetime` that can be used when you don't need to pass options other than `message`.
-
-#### `string.ensure(): Schema`
-
-Transforms `undefined` and `null` values to an empty string along with
-setting the `default` to an empty string.
-
-#### `string.trim(message?: string | function): Schema`
-
-Transforms string values by removing leading and trailing whitespace. If
-`strict()` is set it will only validate that the value is trimmed.
-
-#### `string.lowercase(message?: string | function): Schema`
-
-Transforms the string value to lowercase. If `strict()` is set it
-will only validate that the value is lowercase.
-
-#### `string.uppercase(message?: string | function): Schema`
-
-Transforms the string value to uppercase. If `strict()` is set it
-will only validate that the value is uppercase.
-
-### number
-
-Define a number schema. Inherits from [`Schema`](#Schema).
-
-```js
+```typescript
+// 🎯 Number schema examples
 let schema = trivali.number();
 
 await schema.isValid(10); // => true
+
+// 🔧 Advanced number validation
+let ageSchema = number()
+  .min(0, 'Age cannot be negative')
+  .max(120, 'Age seems unrealistic')
+  .integer('Age must be whole number');
 ```
 
-The default `cast` logic of `number` is: [`parseFloat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseFloat).
+#### **⚙️ Number Schema Behavior**
 
-Failed casts return `NaN`.
+The default `cast` logic of `number` is: [`parseFloat`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseFloat). Failed casts return `NaN`.
 
-#### `number.min(limit: number | Ref, message?: string | function): Schema`
+---
 
-Set the minimum value allowed. The `${min}` interpolation can be used in the
-`message` argument.
+### **✅ Boolean Schema**
 
-#### `number.max(limit: number | Ref, message?: string | function): Schema`
+Define a boolean schema. Inherits from [`Schema`](#schema).
 
-Set the maximum value allowed. The `${max}` interpolation can be used in the
-`message` argument.
-
-#### `number.lessThan(max: number | Ref, message?: string | function): Schema`
-
-Value must be less than `max`. The `${less}` interpolation can be used in the
-`message` argument.
-
-#### `number.moreThan(min: number | Ref, message?: string | function): Schema`
-
-Value must be strictly greater than `min`. The `${more}` interpolation can be used in the
-`message` argument.
-
-#### `number.positive(message?: string | function): Schema`
-
-Value must be a positive number.
-
-#### `number.negative(message?: string | function): Schema`
-
-Value must be a negative number.
-
-#### `number.integer(message?: string | function): Schema`
-
-Validates that a number is an integer.
-
-#### `number.truncate(): Schema`
-
-Transformation that coerces the value to an integer by stripping off the digits
-to the right of the decimal point.
-
-#### `number.round(type: 'floor' | 'ceil' | 'trunc' | 'round' = 'round'): Schema`
-
-Adjusts the value via the specified method of `Math` (defaults to 'round').
-
-### boolean
-
-Define a boolean schema. Inherits from [`Schema`](#Schema).
-
-```js
+```typescript
+// 🎯 Boolean schema example
 let schema = trivali.boolean();
 
 await schema.isValid(true); // => true
+await schema.isValid(false); // => true
+await schema.isValid('true'); // => true (cast)
+await schema.isValid(1); // => true (cast)
 ```
 
-### date
+---
 
-Define a Date schema. By default ISO date strings will parse correctly,
-for more robust parsing options see the extending schema types at the end of the readme.
-Inherits from [`Schema`](#Schema).
+### **📅 Date Schema**
 
-```js
+Define a Date schema. By default ISO date strings will parse correctly. Inherits from [`Schema`](#schema).
+
+#### **🎯 Date Schema Methods**
+
+| Method | Description | Example |
+|--------|-------------|---------|
+| **`.min()`** | Minimum date | `date().min(new Date(2000, 0, 1))` |
+| **`.max()`** | Maximum date | `date().max(new Date())` |
+
+```typescript
+// 🎯 Date schema example
 let schema = trivali.date();
 
 await schema.isValid(new Date()); // => true
+
+// 🔧 Advanced date validation
+let birthDateSchema = date()
+  .min(new Date(1900, 0, 1), 'Date too old')
+  .max(new Date(), 'Date cannot be in future');
 ```
 
-The default `cast` logic of `date` is pass the value to the `Date` constructor, failing that, it will attempt
-to parse the date as an ISO date string.
+#### **⚙️ Date Schema Behavior**
 
-> If you would like ISO strings to not be cast to a `Date` object, use `.datetime()` instead.
+The default `cast` logic of `date` is to pass the value to the `Date` constructor, failing that, it will attempt to parse the date as an ISO date string. Failed casts return an invalid Date.
 
-Failed casts return an invalid Date.
+> 💡 If you would like ISO strings to not be cast to a `Date` object, use `.datetime()` instead.
 
-#### `date.min(limit: Date | string | Ref, message?: string | function): Schema`
+---
 
-Set the minimum date allowed. When a string is provided it will attempt to cast to a date first
-and use the result as the limit.
+### **📋 Array Schema**
 
-#### `date.max(limit: Date | string | Ref, message?: string | function): Schema`
+Define an array schema. Arrays can be typed or not. Inherits from [`Schema`](#schema).
 
-Set the maximum date allowed, When a string is provided it will attempt to cast to a date first
-and use the result as the limit.
+#### **🎯 Array Schema Methods**
 
-### array
+| Method | Description | Example |
+|--------|-------------|---------|
+| **`.of()`** | Element type schema | `array().of(number())` |
+| **`.json()`** | Parse JSON strings | `array().json()` |
+| **`.length()`** | Fixed length | `array().length(3)` |
+| **`.min()`** | Minimum length | `array().min(1)` |
+| **`.max()`** | Maximum length | `array().max(10)` |
+| **`.ensure()`** | Always return array | `array().ensure()` |
+| **`.compact()`** | Remove falsy values | `array().compact()` |
 
-Define an array schema. Arrays can be typed or not, When specifying the element type, `cast` and `isValid`
-will apply to the elements as well. Options passed into `isValid` are also passed to child schemas.
-
-Inherits from [`Schema`](#Schema).
-
-```js
+```typescript
+// 🎯 Array schema examples
 let schema = trivali.array().of(trivali.number().min(2));
 
 await schema.isValid([2, 3]); // => true
 await schema.isValid([1, -24]); // => false
 
 schema.cast(['2', '3']); // => [2, 3]
+
+// 🔧 Advanced array validation
+let tagsSchema = array()
+  .of(string().min(2).max(20))
+  .min(1, 'At least one tag required')
+  .max(5, 'Too many tags')
+  .compact();
 ```
 
-You can also pass a subtype schema to the array constructor as a convenience.
+---
 
-```js
-array().of(trivali.number());
-// or
-array(trivali.number());
-```
+### **📝 Object Schema**
 
-Arrays have no default casting behavior.
+Define an object schema. Inherits from [`Schema`](#schema).
 
-#### `array.of(type: Schema): this`
+#### **🎯 Object Schema Methods**
 
-Specify the schema of array elements. `of()` is optional and when omitted the array schema will
-not validate its contents.
+| Method | Description | Example |
+|--------|-------------|---------|
+| **`.shape()`** | Define object shape | `object().shape({ name: string() })` |
+| **`.json()`** | Parse JSON strings | `object().json()` |
+| **`.concat()`** | Merge schemas | `schema1.concat(schema2)` |
+| **`.pick()`** | Select specific keys | `object().pick(['name', 'age'])` |
+| **`.omit()`** | Remove specific keys | `object().omit(['password'])` |
+| **`.from()`** | Transform keys | `object().from('oldKey', 'newKey')` |
+| **`.exact()`** | No unknown properties | `object().exact()` |
+| **`.stripUnknown()`** | Remove unknown keys | `object().stripUnknown()` |
+| **`.noUnknown()`** | Validate only known keys | `object().noUnknown()` |
+| **`.camelCase()`** | Convert keys to camelCase | `object().camelCase()` |
+| **`.constantCase()`** | Convert keys to CONSTANT_CASE | `object().constantCase()` |
 
-#### `array.json(): this`
-
-Attempt to parse input string values as JSON using [`JSON.parse`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse).
-
-#### `array.length(length: number | Ref, message?: string | function): this`
-
-Set a specific length requirement for the array. The `${length}` interpolation can be used in the `message` argument.
-
-#### `array.min(limit: number | Ref, message?: string | function): this`
-
-Set a minimum length limit for the array. The `${min}` interpolation can be used in the `message` argument.
-
-#### `array.max(limit: number | Ref, message?: string | function): this`
-
-Set a maximum length limit for the array. The `${max}` interpolation can be used in the `message` argument.
-
-#### `array.ensure(): this`
-
-Ensures that the value is an array, by setting the default to `[]` and transforming `null` and `undefined`
-values to an empty array as well. Any non-empty, non-array value will be wrapped in an array.
-
-```js
-array().ensure().cast(null); // => []
-array().ensure().cast(1); // => [1]
-array().ensure().cast([1]); // => [1]
-```
-
-#### `array.compact(rejector: (value) => boolean): Schema`
-
-Removes falsey values from the array. Providing a rejecter function lets you specify the rejection criteria yourself.
-
-```js
-array().compact().cast(['', 1, 0, 4, false, null]); // => [1, 4]
-
-array()
-  .compact(function (v) {
-    return v == null;
-  })
-  .cast(['', 1, 0, 4, false, null]); // => ['', 1, 0, 4, false]
-```
-
-### tuple
-
-Tuples, are fixed length arrays where each item has a distinct type.
-
-Inherits from [`Schema`](#Schema).
-
-```js
-import { tuple, string, number, InferType } from 'trivali';
-
-let schema = tuple([
-  string().label('name'),
-  number().label('age').positive().integer(),
-]);
-
-await schema.validate(['James', 3]); // ['James', 3]
-
-await schema.validate(['James', -24]); // => ValidationError: age must be a positive number
-
-InferType<typeof schema> // [string, number] | undefined
-```
-
-tuples have no default casting behavior.
-
-### object
-
-Define an object schema. Options passed into `isValid` are also passed to child schemas.
-Inherits from [`Schema`](#Schema).
-
-```js
-trivali.object({
+```typescript
+// 🎯 Object schema example
+let userSchema = object({
   name: string().required(),
   age: number().required().positive().integer(),
   email: string().email(),
   website: string().url(),
 });
-```
 
-object schema do not have any default transforms applied.
-
-#### Object schema defaults
-
-Object schema come with a default value already set, which "builds" out the object shape, a
-sets any defaults for fields:
-
-```js
-let schema = object({
-  name: string().default(''),
-});
-
-schema.default(); // -> { name: '' }
-```
-
-This may be a bit surprising, but is usually helpful since it allows large, nested
-schema to create default values that fill out the whole shape and not just the root object. There is
-one gotcha! though. For nested object schema that are optional but include non optional fields
-may fail in unexpected ways:
-
-```js
-let schema = object({
-  id: string().required(),
-  names: object({
-    first: string().required(),
+// 🔧 Advanced object validation
+let profileSchema = object({
+  personal: object({
+    name: string().required(),
+    age: number().min(18).required(),
   }),
-});
-
-schema.isValid({ id: 1 }); // false! names.first is required
+  contact: object({
+    email: string().email().required(),
+    phone: string().optional(),
+  }).optional(),
+}).noUnknown();
 ```
-
-This is because trivali casts the input object before running validation
-which will produce:
-
-> `{ id: '1', names: { first: undefined }}`
-
-During the validation phase `names` exists, and is validated, finding `names.first` missing.
-If you wish to avoid this behavior do one of the following:
-
-- Set the nested default to undefined: `names.default(undefined)`
-- mark it nullable and default to null: `names.nullable().default(null)`
-
-#### `object.shape(fields: object, noSortEdges?: Array<[string, string]>): Schema`
-
-Define the keys of the object and the schemas for said keys.
-
-Note that you can chain `shape` method, which acts like `Object.assign`.
-
-```ts
-object({
-  a: string(),
-  b: number(),
-}).shape({
-  b: string(),
-  c: number(),
-});
-```
-
-would be exactly the same as:
-
-```ts
-object({
-  a: string(),
-  b: string(),
-  c: number(),
-});
-```
-
-#### `object.json(): this`
-
-Attempt to parse input string values as JSON using [`JSON.parse`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse).
-
-#### `object.concat(schemaB: ObjectSchema): ObjectSchema`
-
-Creates a object schema, by applying all settings and fields from `schemaB` to the base, producing a new schema.
-The object shape is shallowly merged with common fields from `schemaB` taking precedence over the base
-fields.
-
-#### `object.pick(keys: string[]): Schema`
-
-Create a new schema from a subset of the original's fields.
-
-```js
-let person = object({
-  age: number().default(30).required(),
-  name: string().default('pat').required(),
-  color: string().default('red').required(),
-});
-
-let nameAndAge = person.pick(['name', 'age']);
-nameAndAge.getDefault(); // => { age: 30, name: 'pat'}
-```
-
-#### `object.omit(keys: string[]): Schema`
-
-Create a new schema with fields omitted.
-
-```js
-let person = object({
-  age: number().default(30).required(),
-  name: string().default('pat').required(),
-  color: string().default('red').required(),
-});
-
-let nameAndAge = person.omit(['color']);
-nameAndAge.getDefault(); // => { age: 30, name: 'pat'}
-```
-
-#### `object.from(fromKey: string, toKey: string, alias: boolean = false): this`
-
-Transforms the specified key to a new key. If `alias` is `true` then the old key will be left.
-
-```js
-let schema = object({
-  myProp: mixed(),
-  Other: mixed(),
-})
-  .from('prop', 'myProp')
-  .from('other', 'Other', true);
-
-schema.cast({ prop: 5, other: 6 }); // => { myProp: 5, other: 6, Other: 6 }
-```
-
-#### `object.exact(message?: string | function): Schema`
-
-Validates that the object does not contain extra or unknown properties
-
-#### `object.stripUnknown(): Schema`
-
-The same as `object().validate(value, { stripUnknown: true})`, but as a transform method. When set
-any unknown properties will be removed.
-
-#### `object.noUnknown(onlyKnownKeys: boolean = true, message?: string | function): Schema`
-
-Validate that the object value only contains keys specified in `shape`, pass `false` as the first
-argument to disable the check. Restricting keys to known, also enables `stripUnknown` option, when not in strict mode.
-
-> Watch Out!: this method performs a transform and a validation, which may produce unexpected results.
-> For more explicit behavior use `object().stripUnknown` and `object().exact()`
-
-#### `object.camelCase(): Schema`
-
-Transforms all object keys to camelCase
-
-#### `object.constantCase(): Schema`
-
-Transforms all object keys to CONSTANT_CASE.
