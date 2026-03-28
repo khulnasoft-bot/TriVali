@@ -6,35 +6,40 @@ on:
   pull_request:
     branches: [master, next]
 
-concurrency:
-  group: ci-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
   build:
-    name: Build & Test
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [18, 20] # test multiple runtimes
-
     steps:
-    - uses: actions/checkout@v4
-  
-    - name: ⚙️ Setup Node
-      uses: actions/setup-node@v4
-      with:
-        node-version: 20
-        cache: pnpm
-  
-    - name: 📦 Setup pnpm
-      run: |
-        corepack enable
-        corepack prepare pnpm@8.15.7 --activate
-  
-    - name: 📦 Install
-      run: pnpm install --frozen-lockfile
-  
-    - name: 🧪 Test
-      run: pnpm test
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # ✅ MUST come BEFORE using pnpm
+      - name: 📦 Enable Corepack (pnpm)
+        run: |
+          corepack enable
+          corepack prepare pnpm@8.15.7 --activate
+
+      # ✅ Now caching works because pnpm exists
+      - name: ♻️ Get pnpm store path
+        id: pnpm-cache
+        run: echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_ENV
+
+      - name: ♻️ Cache pnpm
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: pnpm-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            pnpm-${{ runner.os }}-
+
+      - name: 📦 Install
+        run: pnpm install --frozen-lockfile
+
+      - name: 🧪 Test
+        run: pnpm test --if-present
