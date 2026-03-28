@@ -1,3 +1,5 @@
+
+import { describe, it, expect } from 'vitest';
 import { ISchema } from '../src/types';
 import printValue from '../src/util/printValue';
 

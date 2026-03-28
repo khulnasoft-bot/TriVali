@@ -1,11 +1,5 @@
-import {
-  lazy,
-  object,
-  mixed,
-  AnyObject,
-  MixedSchema,
-  ValidationError,
-} from '../src';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { lazy, object, mixed, ValidationError } from '../src';
 
 describe('lazy', function () {
   it('should throw on a non-schema value', () => {
@@ -15,10 +9,10 @@ describe('lazy', function () {
 
   describe('mapper', () => {
     const value = 1;
-    let mapper: jest.Mock<MixedSchema<any, AnyObject, undefined, ''>, []>;
+    let mapper: any;
 
     beforeEach(() => {
-      mapper = jest.fn(() => mixed());
+      mapper = vi.fn(() => mixed());
     });
 
     it('should call with value', () => {
@@ -32,7 +26,7 @@ describe('lazy', function () {
       };
       let options = { context };
       lazy(mapper).validate(value, options);
-      expect(mapper).toHaveBeenCalledWith(value, options);
+      expect(mapper).toHaveBeenCalledWith(value, { ...options });
     });
 
     it('should call with context when nested: #1799', () => {
@@ -45,7 +39,7 @@ describe('lazy', function () {
       }).validate(value, options);
 
       lazy(mapper).validate(value, options);
-      expect(mapper).toHaveBeenCalledWith(value, options);
+      expect(mapper).toHaveBeenCalledWith(value, { ...options });
     });
 
     it('should allow meta', () => {
