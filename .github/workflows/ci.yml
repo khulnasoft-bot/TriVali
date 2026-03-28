@@ -15,9 +15,11 @@ jobs:
         with:
           node-version: '20'
           
-      - name: Install pnpm
-        run: npm install -g pnpm@8
-        
+      - name: Setup pnpm with corepack
+        run: |
+          corepack enable
+          corepack prepare pnpm@8 --activate
+          
       - name: Cache pnpm
         uses: actions/cache@v4
         with:
@@ -26,7 +28,5 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-
             
-      - run: |
-          corepack enable
       - run: pnpm install --frozen-lockfile
       - run: pnpm test
