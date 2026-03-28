@@ -1,4 +1,4 @@
-import { forEach } from 'property-expr';
+import expr from 'property-expr';
 import type Reference from '../Reference';
 import type { InferType, ISchema } from '../types';
 import type { Get } from 'type-fest';
@@ -18,7 +18,7 @@ export function getIn<C = any>(
   // root path: ''
   if (!path) return { parent, parentPath: path, schema };
 
-  forEach(path, (_part, isBracket, isArray) => {
+  expr.forEach(path, (_part: any, isBracket: any, isArray: any) => {
     let part = isBracket ? _part.slice(1, _part.length - 1) : _part;
 
     schema = schema.resolve({ context, parent, value });

@@ -1,4 +1,4 @@
-import { getter } from 'property-expr';
+import expr from 'property-expr';
 import type { SchemaRefDescription } from './schema';
 
 const prefixes = {
@@ -48,7 +48,7 @@ export default class Reference<TValue = unknown> {
       : '';
 
     this.path = this.key.slice(prefix.length);
-    this.getter = this.path && getter(this.path, true);
+    this.getter = this.path && expr.getter(this.path, true);
     this.map = options.map;
   }
 

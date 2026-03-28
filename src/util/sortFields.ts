@@ -1,6 +1,6 @@
 // @ts-expect-error
 import toposort from 'toposort';
-import { split } from 'property-expr';
+import expr from 'property-expr';
 
 import Ref from '../Reference';
 import isSchema from './isSchema';
@@ -15,7 +15,7 @@ export default function sortFields(
   let excludes = new Set(excludedEdges.map(([a, b]) => `${a}-${b}`));
 
   function addNode(depPath: string, key: string) {
-    let node = split(depPath)[0];
+    let node = expr.split(depPath)[0];
 
     nodes.add(node);
     if (!excludes.has(`${key}-${node}`)) edges.push([key, node]);
