@@ -14,11 +14,7 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: '20'
-          
-      - name: Setup pnpm with corepack
-        run: |
-          corepack enable
-          corepack prepare pnpm@8 --activate
+          package-manager: 'pnpm'
           
       - name: Cache pnpm
         uses: actions/cache@v4
