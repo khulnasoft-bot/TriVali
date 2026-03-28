@@ -1,59 +1,104 @@
 {
   "name": "trivali",
   "version": "1.0.0",
-  "description": "Dead simple Object schema validation",
-  "main": "lib/index.js",
-  "module": "lib/index.esm.js",
-  "runkitExampleFilename": "./runkit-example.js",
-  "scripts": {
-    "test": "pnpm lint && pnpm testonly",
-    "testonly": "vitest run",
-    "test-sync": "vitest run --project sync",
-    "tdd": "vitest --project async",
-    "lint": "eslint src test",
-    "precommit": "lint-staged",
-    "toc": "doctoc README.md --github",
-    "release": "rollout",
-    "build": "rm -rf lib && pnpm vite build && pnpm toc",
-    "prepublishOnly": "pnpm build"
-  },
+  "description": "Dead simple object schema validation",
+  "license": "MIT",
+  "author": "Md Sulaiman (@khulnasoft)",
+  "homepage": "https://github.com/khulnasoft-bot/trivali",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/khulnasoft-bot/trivali.git"
+    "url": "https://github.com/khulnasoft-bot/trivali.git"
   },
-  "author": {
-    "name": "@monasticpanic Jason Quense"
-  },
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/khulnasoft-bot/trivali/issues"
   },
-  "homepage": "https://github.com/khulnasoft-bot/trivali",
-  "release": {
-    "conventionalCommits": true,
-    "publishDir": "lib"
+
+  "packageManager": "pnpm@8.15.7",
+
+  "engines": {
+    "node": ">=18",
+    "pnpm": ">=8"
   },
+
+  "type": "module",
+
+  "main": "./lib/index.cjs",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+
+  "exports": {
+    ".": {
+      "import": "./lib/index.js",
+      "require": "./lib/index.cjs",
+      "types": "./lib/index.d.ts"
+    }
+  },
+
+  "files": [
+    "lib"
+  ],
+
+  "sideEffects": false,
+
+  "scripts": {
+    "clean": "rm -rf lib",
+    "build": "pnpm clean && vite build && pnpm toc",
+
+    "lint": "eslint src test",
+    "format": "prettier --write .",
+
+    "test": "pnpm lint && pnpm test:run",
+    "test:run": "vitest run",
+    "test:watch": "vitest",
+    "test:sync": "vitest run --project sync",
+
+    "tdd": "vitest --project async",
+
+    "toc": "doctoc README.md --github",
+
+    "release": "rollout",
+
+    "prepare": "husky install",
+    "prepublishOnly": "pnpm build"
+  },
+
+  "lint-staged": {
+    "*.{js,ts,json,css,md}": [
+      "prettier --write"
+    ]
+  },
+
   "prettier": {
     "singleQuote": true,
     "trailingComma": "all"
   },
-  "lint-staged": {
-    "*.{js,json,css,md}": [
-      "prettier --write",
-      "git add"
-    ]
+
+  "release": {
+    "conventionalCommits": true,
+    "publishDir": "lib"
   },
+
+  "dependencies": {
+    "property-expr": "^2.0.5",
+    "tiny-case": "^1.0.3",
+    "toposort": "^2.0.2",
+    "type-fest": "^2.19.0"
+  },
+
   "devDependencies": {
     "@4c/cli": "^4.0.4",
     "@4c/rollout": "^4.0.2",
+
     "@babel/cli": "^7.22.9",
     "@babel/core": "^7.22.9",
     "@babel/preset-typescript": "^7.22.5",
+
     "@standard-schema/spec": "^1.1.0",
     "@types/minimatch": "^6.0.0",
+
     "@typescript-eslint/eslint-plugin": "^5.62.0",
     "@typescript-eslint/parser": "^5.62.0",
-    "doctoc": "^2.2.1",
+
     "eslint": "^8.45.0",
     "eslint-config-jason": "^8.2.2",
     "eslint-config-prettier": "^8.8.0",
@@ -62,22 +107,23 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-ts-expect": "^2.1.0",
     "eslint-plugin-typescript": "^0.14.0",
+
+    "@khulnasoft/style-guide": "^4.0.0",
+
+    "doctoc": "^2.2.1",
     "hookem": "^2.0.1",
     "lint-staged": "^13.2.3",
-    "minimatch": "^10.1.1",
-    "prettier": ">=3.0.0 <4",
-    "synchronous-promise": "^2.0.17",
+
+    "prettier": "^3.0.0",
+
     "typescript": "^4.9.5",
+
     "vite": "^5.0.0",
     "vite-plugin-dts": "^3.7.0",
+
     "vitest": "^3.2.4",
-    "@khulnasoft/style-guide": "^4.0.0"
-  },
-  "dependencies": {
-    "property-expr": "^2.0.5",
-    "tiny-case": "^1.0.3",
-    "toposort": "^2.0.2",
-    "type-fest": "^2.19.0"
-  },
-  "packageManager": "pnpm@8.15.7"
+
+    "minimatch": "^10.1.1",
+    "synchronous-promise": "^2.0.17"
+  }
 }
